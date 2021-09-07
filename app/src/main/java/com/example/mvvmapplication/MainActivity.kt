@@ -3,39 +3,32 @@ package com.example.mvvmapplication
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mvvmapplication.adapter.UserListAdapter
 import com.example.mvvmapplication.model.User
-import com.example.mvvmapplication.network.ApiHelper
-import com.example.mvvmapplication.network.RetrofitBuilder
 import com.example.mvvmapplication.utils.Status
 import com.example.mvvmapplication.viewmodel.UserViewModel
-import com.example.mvvmapplication.viewmodel.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var userListAdapter: UserListAdapter
-    private lateinit var userViewModel: UserViewModel
+    @Inject
+    lateinit var userListAdapter: UserListAdapter
+    private val userViewModel: UserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setUpViewModel()
         setUoUi()
         setUpObserve()
-    }
-
-    fun setUpViewModel() {
-        userViewModel =
-            ViewModelProvider(this, ViewModelFactory(ApiHelper(RetrofitBuilder.apiService))).get(
-                UserViewModel::class.java
-            )
     }
 
     fun setUoUi() {

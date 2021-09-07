@@ -8,8 +8,9 @@ import com.bumptech.glide.Glide
 import com.example.mvvmapplication.R
 import com.example.mvvmapplication.model.User
 import kotlinx.android.synthetic.main.items.view.*
+import javax.inject.Inject
 
-class UserListAdapter : RecyclerView.Adapter<UserListAdapter.CustomView>() {
+class UserListAdapter @Inject constructor() : RecyclerView.Adapter<UserListAdapter.CustomView>() {
 
     private val userList = ArrayList<User>()
 
